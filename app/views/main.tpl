@@ -26,18 +26,18 @@
 		<div class="header clearfix">
 			<nav>
 				<ul class="nav nav-pills pull-right">
-					<li role="presentation" class="active"><a href="#">Create task</a></li>
+					<li role="presentation" class="active"><a href="/create">Create task</a></li>
 					<li role="presentation"><a href="#">Admin panel</a></li>
 				 </ul>
 			</nav>
-			<h3 class="text-muted">To Do Public</h3>
+			<h3 class="text-muted"><a href="/">To Do Public</a></h3>
 		</div>
 		
 		{if isset($promo) && $promo}
 			<div class="jumbotron todolist">
 				<h1>Public ToDo list</h1>
 				<p class="lead">You can create a task for the author of this site. The author will execute it and you will see the result.</p>
-				<p><a class="btn btn-lg btn-success" href="#" role="button">Create task</a></p>
+				<p><a class="btn btn-lg btn-success" href="/create" role="button">Create task</a></p>
 			</div>
 		{/if}
 		 

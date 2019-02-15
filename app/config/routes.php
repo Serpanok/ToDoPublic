@@ -14,3 +14,8 @@
 */
 
 Router::get("/", "TaskController@page");
+
+Router::get("/create", function() {
+	return View::main( ["tpl" => "taskCreate"] , [ "title" => "Create a new task" ]);
+});
+
