@@ -28,6 +28,24 @@ class Request
 		// set http method
 		$this->method = $_SERVER["REQUEST_METHOD"];
 		
+		// select target of input data
+		$inputArray = array();
+		switch( $this->method )
+		{
+			case 'GET':
+				$inputArray = &$_GET;
+				break;
+			case 'POST':
+				$inputArray = &$_POST;
+				break;
+		}
+		
+		// set the list of input data
+		foreach($inputArray as $name => $value)
+		{
+			$this->input[$name] = $value;
+		}
+		
 		// set URI
 		$this->uri = $this->prepareUri($_SERVER["REQUEST_URI"]);
     }
