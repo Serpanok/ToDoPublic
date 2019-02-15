@@ -65,6 +65,22 @@ abstract class Model
 	}
 	
 	/**
+     * Delete Model form Database.
+     *
+     * @return int
+     */
+	public function delete()
+	{
+		$pk = static::$primaryKey;
+		if( !isset($this->$pk) && $this->$pk > 0 )
+		{
+			return false;
+		}
+		
+		return DataBase::delete("DELETE FROM `" . static::$table . "` WHERE `" . static::$primaryKey . "` = ?", $this->$pk);
+	}
+	
+	/**
      * Create new object of Model & set attributes.
      *
 	 * @param  array  $result
