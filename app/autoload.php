@@ -8,7 +8,7 @@ class Autoload
      * @var array
      */
 	private $autoloadMap = array(
-		
+		'Core'     		=> 'core/Core',
 	);
 	
 	public function __construct()
