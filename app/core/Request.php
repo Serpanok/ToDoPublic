@@ -56,7 +56,7 @@ class Request
 	 * @param  string  $name
      * @return string
      */
-	protected function input( $name )
+	public function input( $name )
 	{
 		return isset( $this->input[ $name ] ) ? $this->input[ $name ] : null;
 	}
