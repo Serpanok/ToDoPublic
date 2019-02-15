@@ -9,6 +9,7 @@ class Autoload
      */
 	private $autoloadMap = array(
 		'Core'     		=> 'core/Core',
+		'Controller'	=> 'core/Controller',
 	);
 	
 	public function __construct()
