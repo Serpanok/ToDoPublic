@@ -65,6 +65,30 @@ abstract class Model
 	}
 	
 	/**
+     * Find all Models.
+     *
+     * @return Collection
+     */
+	public static function all()
+	{
+		self::init();
+		
+		$collection = new Collection();
+		
+		$result = DataBase::select("SELECT * FROM `" . static::$table . "`");
+		
+		if( $result !== null )
+		{
+			foreach( $result as $item )
+			{
+				$collection->items[] = self::newItem($item);
+			}
+		}
+		
+		return $collection;
+	}
+	
+	/**
      * Delete Model form Database.
      *
      * @return int
