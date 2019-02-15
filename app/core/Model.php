@@ -31,6 +31,13 @@ abstract class Model
     protected static $hidden = [ "password" ];
 	
 	/**
+     * The flag shows the existence of an object in DB
+     *
+     * @var boolean
+     */
+    protected $isExist = false;
+	
+	/**
      * List of object attributes
      *
      * @var array
@@ -43,6 +50,8 @@ abstract class Model
      */
 	public function __construct( $default = array() )
 	{
+		self::init();
+		
 		$attributes = array_merge(static::$default, $default);
 		self::setAttributes($this, $attributes);
     }
@@ -126,6 +135,23 @@ abstract class Model
 	}
 	
 	/**
+     * Save Model changes to Database.
+     *
+     * @return int
+     */
+	public function save()
+	{
+		if( $this->isExist )
+		{
+			return $this->update();
+		}
+		else
+		{
+			return $this->insert();
+		}
+	}
+	
+	/**
      * Delete Model form Database.
      *
      * @return int
@@ -141,17 +167,72 @@ abstract class Model
 	}
 	
 	/**
+     * Insert object to Database.
+     *
+     * @return boolean
+     */
+	protected function insert()
+	{
+		//prepare placeholders for SQL query
+		$placeholders = implode(",", array_fill(0, count($this->attributes), "?"));
+		//prepare columns names for SQL query
+		$columns = implode( "`,`", array_keys($this->attributes) );
+		
+		$methodAttributes = array_values($this->attributes);
+		// add first method attribute - query
+		array_unshift($methodAttributes, "INSERT INTO `" . static::$table . "` (`$columns`) VALUES ($placeholders)");
+		
+		// inserting
+		$result = call_user_func_array("Database::insert", $methodAttributes);
+		if( $result )
+		{
+			$this->isExist = true;
+			// set PK
+			$this->attributes[static::$primaryKey] = Database::lastInsertId();
+			
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/**
+     * update object in Database.
+     *
+     * @return boolean
+     */
+	protected function update()
+	{
+		$set = array();
+		foreach( $this->attributes as $column => $value )
+		{
+			$set[] = "`$column`=?";
+		}
+		$set = implode(",", $set);
+		
+		$methodAttributes = array_values( $this->attributes );
+		// add first method attribute - query
+		array_unshift($methodAttributes, "UPDATE `" . static::$table . "` SET $set WHERE `" . static::$primaryKey . "` = ?");
+		// add last method attribute - primaryKey to WHERE
+		$methodAttributes[] = $this->attributes[static::$primaryKey];
+		
+		// inserting
+		return call_user_func_array("Database::update", $methodAttributes);
+	}
+	
+	/**
      * Create new object of Model & set attributes.
      *
 	 * @param  array  $result
+	 * @param  boolean  $isExist
      * @return object
      */
-	protected static function newItem( $result = array() )
+	protected static function newItem( $result = array(), $isExist = true )
 	{
 		$class = get_called_class();
-		$item = new $class;
+		$item = new $class($result);
 		
-		self::setAttributes($item, $result);
+		$item->isExist = $isExist;
 		
 		return $item;
 	}
