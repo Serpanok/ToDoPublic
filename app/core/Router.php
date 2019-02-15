@@ -52,12 +52,13 @@ abstract class Router
      *
      * @param  string  $route
      * @param  mixed  $callback
+     * @param  array  $settings
      * @return void
      */
-	public static function get( $route, $callback )
+	public static function get( $route, $callback, $settings = array() )
 	{
 		$route = self::prepareRoute($route);
-		self::$GET_routes[$route] = self::prepareHandler($callback);
+		self::$GET_routes[$route] = self::prepareHandler($callback, $settings);
 	}
 	
 	/**
@@ -65,12 +66,13 @@ abstract class Router
      *
      * @param  string  $route
      * @param  mixed  $callback
+     * @param  array  $settings
      * @return void
      */
-	public static function post( $route, $callback )
+	public static function post( $route, $callback, $settings = array() )
 	{
 		$route = self::prepareRoute($route);
-		self::$POST_routes[$route] = self::prepareHandler($callback);
+		self::$POST_routes[$route] = self::prepareHandler($callback, $settings);
 	}
 	
 	/**
@@ -118,6 +120,18 @@ abstract class Router
 		if( $route === null )
 		{
 			self::terminate(404);
+		}
+		
+		// Check middlewares
+		foreach( $route["middlewares"] as $middlewareName )
+		{
+			$middleware = new $middlewareName;
+			
+			$handle = $middleware->handle( $request );
+			if( $handle !== 200 )
+			{
+				self::terminate($handle);
+			}
 		}
 		
 		// Set the Request object to first callback parameter
@@ -183,9 +197,10 @@ abstract class Router
      * Preparing the route heandler.
      *
      * @param  mixed  $callback
+     * @param  array  $settings
      * @return array
      */
-	protected static function prepareHandler( $callback )
+	protected static function prepareHandler( $callback, $settings = array() )
 	{
 		$handler = array();
 		
@@ -205,7 +220,10 @@ abstract class Router
 			$handler["method"] = isset($controller[1]) ? $controller[1] : "render";
 		}
 		
+		$handler["middlewares"] = isset( $settings["middlewares"] ) ? $settings["middlewares"] : array();
+		
 		return $handler;
 	}
 	
 }
+
