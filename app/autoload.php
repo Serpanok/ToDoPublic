@@ -13,6 +13,7 @@ class Autoload
 		'Router'     	=> 'core/Router',
 		'Controller'	=> 'core/Controller',
 		'Database'		=> 'core/Database',
+		'Model'			=> 'core/Model',
 	);
 	
 	public function __construct()
