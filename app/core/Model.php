@@ -31,6 +31,13 @@ abstract class Model
     protected static $hidden = [ "password" ];
 	
 	/**
+     * List of object attributes
+     *
+     * @var array
+     */
+    protected $attributes = [];
+	
+	/**
 	 * @param  array  $default		Default values of attributes
      * @return void
      */
@@ -38,9 +45,38 @@ abstract class Model
 	{
 		$attributes = array_merge(static::$default, $default);
 		self::setAttributes($this, $attributes);
-		
-		$pk = static::$primaryKey;
-		$this->$pk = null;
+    }
+	
+	/**
+	 * Getter of object attributes.
+	 *
+	 * @param  string  $name
+	 * @return string
+	 */
+	public function __get( $name )
+	{
+		return isset( $this->attributes[ $name ] ) ? $this->attributes[ $name ] : null;
+	}
+	
+	/**
+	 * Setter of input item.
+	 *
+	 * @param  string  $name
+	 * @return string
+	 */
+	public function __set( $name, mixed $value )
+	{
+		$this->attributes[$name] = $value;
+	}
+	
+	public function __isset( $name )
+	{
+		return isset( $this->attributes[ $name ] );
+	}
+	
+	public function __unset( $name ) 
+    {
+        unset( $this->attributes[ $name ] );
     }
 	
 	/**
@@ -95,13 +131,12 @@ abstract class Model
      */
 	public function delete()
 	{
-		$pk = static::$primaryKey;
-		if( !isset($this->$pk) && $this->$pk > 0 )
+		if( !isset($this->attributes[static::$primaryKey]) || $this->attributes[static::$primaryKey] <= 0 )
 		{
 			return false;
 		}
 		
-		return DataBase::delete("DELETE FROM `" . static::$table . "` WHERE `" . static::$primaryKey . "` = ?", $this->$pk);
+		return DataBase::delete("DELETE FROM `" . static::$table . "` WHERE `" . static::$primaryKey . "` = ?", $this->attributes[static::$primaryKey]);
 	}
 	
 	/**
@@ -133,7 +168,7 @@ abstract class Model
 		{
 			if( array_search($key, static::$hidden) === false )
 			{
-				$object->$key = $value;
+				$object->attributes[$key] = $value;
 			}
 		}
 	}
