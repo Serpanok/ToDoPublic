@@ -40,6 +40,7 @@ class View
 		}
 		
 		$attributes["_messages"] = Session::pullMessages();
+		$attributes["_auth"] = Session::has("auth");
 		
 		$smarty = self::prepareSmarty( $attributes, $settings );
 		
