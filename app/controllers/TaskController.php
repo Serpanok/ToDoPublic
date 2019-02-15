@@ -6,8 +6,11 @@ class TaskController extends Controller
 	{
 		$tasks = TaskModel::all();
 		
-		//printf("<pre>%s</pre>", print_r($tasks, true));
+		$content = View::render("tasksList", [
+			"tasks" => $tasks->items,
+		]);
 		
-		return View::render("index");
+		return View::main($content, [ "promo" => true, "title" => "Public ToDo list" ]);
 	}
 }
+
