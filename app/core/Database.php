@@ -1,6 +1,6 @@
 <?php
 
-abstract class DataBase
+abstract class Database
 {
 	protected static $DBH = null;
 	
