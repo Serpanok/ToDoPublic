@@ -57,6 +57,7 @@ class AuthController extends Controller
      */
 	public function signout( Request $request )
 	{
+		Session::delete("auth");
 		Session::message("Logout successful", "success");
 		
 		Router::redirectNow("/");

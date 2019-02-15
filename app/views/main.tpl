@@ -27,7 +27,11 @@
 			<nav>
 				<ul class="nav nav-pills pull-right">
 					<li role="presentation" class="active"><a href="/create">Create task</a></li>
-					<li role="presentation"><a href="/signin">Sign in</a></li>
+					{if $_auth}
+						<li role="presentation"><a href="/signout">Sign out</a></li>
+					{else}
+						<li role="presentation"><a href="/signin">Sign in</a></li>
+					{/if}
 				 </ul>
 			</nav>
 			<h3 class="text-muted"><a href="/">To Do Public</a></h3>
