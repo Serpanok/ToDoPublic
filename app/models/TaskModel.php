@@ -49,5 +49,45 @@ class TaskModel extends Model
 		
 		return ceil($result["tasks_count"] / $perPage);
 	}
+	
+	/**
+	 * Return attribute of object.
+	 *
+	 * @param  string  $name
+	 * @return string
+	 */
+	public function input( $name )
+	{
+		if( $name == 'statusName' )
+		{
+			switch( $this->input('status') )
+			{
+				case 1:
+					return 'New';
+				case 2:
+					return 'In progress';
+				case 3:
+					return 'Completed';
+				case 4:
+					return 'Rejected';
+			}
+		}
+		else if( $name == 'statusClass' )
+		{
+			switch( $this->input('status') )
+			{
+				case '1':
+					return 'default';
+				case '2':
+					return 'info';
+				case 3:
+					return 'success';
+				case 4:
+					return 'danger';
+			}
+		}
+		
+		return isset( $this->attributes[ $name ] ) ? $this->attributes[ $name ] : null;
+	}
 }
 

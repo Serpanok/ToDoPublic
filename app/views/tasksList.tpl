@@ -15,11 +15,18 @@
 			</div>
 		</form>
 	
-		{foreach from=$tasks item=task}
-			<h4>{$task->username}</h4>
-			<p>{$task->text}</p>
-		{foreachelse}
-			Ничего не найдено
-		{/foreach}
+		<p>
+			{foreach from=$tasks item=task}
+				<div class="panel panel-{$task->statusClass}">
+					<div class="panel-heading">
+						<h3 class="panel-title">{$task->username}</h3>
+					</div>
+					<div class="panel-body">{$task->text}</div>
+					<div class="panel-footer"><b>Email:</b> <a href="mailto:{$task->email}" target="_blank">{$task->email}</a> <b>Status:</b> {$task->statusName}</div>
+				</div>
+			{foreachelse}
+				Ничего не найдено
+			{/foreach}
+		</p>
 	</div>
 </div>
