@@ -14,6 +14,7 @@ class Autoload
 		'Controller'	=> 'core/Controller',
 		'Database'		=> 'core/Database',
 		'Model'			=> 'core/Model',
+		'Collection'	=> 'core/Collection',
 	);
 	
 	public function __construct()
