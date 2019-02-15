@@ -18,4 +18,18 @@ class UserController extends Controller
 		
 		return sprintf("User page<br><br>id: %d<br>Username: %s", $user_id, $user->username);
 	}
+	
+	public function usersPage()
+	{
+		$result = sprintf("Users list:<br>");
+		
+		$users = UserModel::all();
+		
+		foreach($users->items as $user)
+		{
+			$result .= sprintf("<br>User: #%d <a href='/user/%d'>@%s</a>", $user->id, $user->id, $user->username);
+		}
+		
+		return $result;
+	}
 }

@@ -19,6 +19,7 @@ Router::get("/", function(){
 
 Router::get("/ping", "UserController@ping");
 
+Router::get("/users", "UserController@usersPage");
 Router::get("/user/{id}", "UserController@userPage");
 
-Router::redirect("/users", "/user/1");
+Router::redirect("/users/", "/users");
