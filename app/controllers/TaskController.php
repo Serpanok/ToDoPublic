@@ -91,5 +91,63 @@ class TaskController extends Controller
 		
 		Router::redirectNow("/");
 	}
+	
+	/**
+     * Render task edit page.
+     *
+	 * @param  Request  $request
+	 * @param  string  $task_id
+     * @return string
+     */
+	public function editPage( Request $request, $task_id )
+	{
+		$task = TaskModel::find( $task_id );
+		
+		// if undefined task
+		if( $task == null )
+		{
+			Router::terminate(404);
+		}
+		
+		$content = View::render("taskEdit", [
+			"task" => $task,			
+		]);
+		
+		return View::main($content, [ "title" => "Edit task" ]);
+	}
+	
+	/**
+     * Edit task.
+     *
+	 * @param  Request  $request
+	 * @param  string  $task_id
+     * @return string
+     */
+	public function edit( Request $request, $task_id )
+	{
+		$task = TaskModel::find( $task_id );
+		
+		// if undefined task
+		if( $task == null )
+		{
+			Router::terminate(404);
+		}
+		// if request not contains required parameters
+		if( !isset( $request->text ) )
+		{
+			Session::message("Fill all necessary fields", "warning");
+			Router::redirectNow("/");
+		}
+		
+		$task->text = $request->text;
+		$task->status = isset($request->status) ? 3 : 1;
+		
+		if( $task->save() )
+		{
+			Session::message("New task successfully added", "success");
+		}
+		
+		return Router::redirectNow("/");
+	}
 }
 
