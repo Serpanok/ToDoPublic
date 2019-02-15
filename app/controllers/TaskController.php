@@ -6,8 +6,7 @@ class TaskController extends Controller
      * Render tasks list page.
      *
 	 * @param  Request  $request
-	 * @param  string  $page
-     * @return object
+     * @return string
      */
 	public function page( Request $request )
 	{
