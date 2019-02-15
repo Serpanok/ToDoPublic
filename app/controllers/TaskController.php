@@ -9,8 +9,9 @@ class TaskController extends Controller
 	 * @param  string  $page
      * @return object
      */
-	public function page( Request $request, $page = 1 )
+	public function page( Request $request )
 	{
+		$page = isset($request->page) ? $request->page : 1;
 		$tasks = TaskModel::pageItems($page);
 		
 		$content = View::render("tasksList", [
