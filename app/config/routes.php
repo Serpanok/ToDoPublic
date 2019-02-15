@@ -13,13 +13,4 @@
 |
 */
 
-Router::get("/", function(){
-	return "work!";
-});
-
-Router::get("/ping", "UserController@ping");
-
-Router::get("/users", "UserController@usersPage");
-Router::get("/user/{id}", "UserController@userPage");
-
-Router::redirect("/users/", "/users");
+Router::get("/", "TaskController@page");
