@@ -15,7 +15,7 @@ class AuthMiddleware extends Middleware
 			return 200;
 		}
 		
-		Router::redirectNow("/login");
+		Router::redirectNow("/signin");
 		return 401;
 	}
 }

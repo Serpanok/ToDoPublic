@@ -21,3 +21,7 @@ Router::get("/create", function() {
 
 Router::post("/create", "TaskController@create");
 
+
+Router::get("/signin", "AuthController@signinPage");
+Router::get("/signout", "AuthController@signout", [ "middlewares" => [ "AuthMiddleware" ] ]);
+
