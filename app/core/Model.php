@@ -57,6 +57,17 @@ abstract class Model
     }
 	
 	/**
+	 * Return attribute of object.
+	 *
+	 * @param  string  $name
+	 * @return string
+	 */
+	public function input( $name )
+	{
+		return isset( $this->attributes[ $name ] ) ? $this->attributes[ $name ] : null;
+	}
+	
+	/**
 	 * Getter of object attributes.
 	 *
 	 * @param  string  $name
@@ -64,7 +75,7 @@ abstract class Model
 	 */
 	public function __get( $name )
 	{
-		return isset( $this->attributes[ $name ] ) ? $this->attributes[ $name ] : null;
+		return $this->input( $name );
 	}
 	
 	/**
