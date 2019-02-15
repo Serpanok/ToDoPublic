@@ -80,7 +80,34 @@ abstract class Router
 		if( $route === null )
 		{
 			self::terminate(404);
-			return;
+		}
+		
+		// Set the Request object to first callback parameter
+		$callbackParameters[0] = $request;
+		
+		// if the route have closure callback
+		if( isset( $route["function"] ) )
+		{
+			$response = call_user_func_array($route["function"], $callbackParameters );
+		}
+		else
+		{
+			// check for existence of route controller
+			if( !class_exists($route["controller"]) )
+			{
+				self::terminate(500);
+			}
+			
+			// create handler controller
+			$controller = new $route["controller"]();
+			
+			// check for existence of route method
+			if( !method_exists( $controller, $route["method"] ) )
+			{
+				self::terminate(500);
+			}
+			
+			$response = call_user_func_array( [$controller, $route["method"] ], $callbackParameters );
 		}
 		
 		return $response;
