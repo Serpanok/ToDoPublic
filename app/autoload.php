@@ -15,6 +15,8 @@ class Autoload
 		'Database'		=> 'core/Database',
 		'Model'			=> 'core/Model',
 		'Collection'	=> 'core/Collection',
+		'View'			=> 'core/View',
+		'Smarty'		=> 'libs/Smarty/Smarty.class',
 	);
 	
 	public function __construct()
