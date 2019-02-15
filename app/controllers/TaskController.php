@@ -11,7 +11,7 @@ class TaskController extends Controller
      */
 	public function page( Request $request, $page = 1 )
 	{
-		$tasks = TaskModel::all();
+		$tasks = TaskModel::pageItems($page);
 		
 		$content = View::render("tasksList", [
 			"tasks" => $tasks->items,
