@@ -11,14 +11,33 @@ class TaskController extends Controller
      */
 	public function page( Request $request )
 	{
+		$pagesCount = TaskModel::pagesCount();
+		
+		// set page number and check for correct interval
 		$page = isset($request->page) ? $request->page : 1;
+		if( $page <= 0 )
+		{
+			$page = 1;
+		}
+		else if( $page > $pagesCount )
+		{
+			$page = $pagesCount;
+		}
+		
+		// select tasks on this page
 		$tasks = TaskModel::pageItems($page);
+		
+		$pagination = View::render("pagination", [
+			"pagesCount" => $pagesCount,
+			"page" => $page,
+			"uri_prfix" => "/?page=",
+		]);
 		
 		$content = View::render("tasksList", [
 			"tasks" => $tasks->items,
 		]);
 		
-		return View::main($content, [ "promo" => true, "title" => "Public ToDo list" ]);
+		return View::main($content . $pagination, [ "promo" => true, "title" => "Public ToDo list" ]);
 	}
 	
 	/**
