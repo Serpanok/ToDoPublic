@@ -11,6 +11,8 @@ class Core
 		try
 		{
 			$this->request = new Request();
+			
+			Database::init();
 
 			print Router::handle( $this->request );
 		}
