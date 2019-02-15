@@ -12,6 +12,7 @@ class Autoload
 		'Request'     	=> 'core/Request',
 		'Router'     	=> 'core/Router',
 		'Controller'	=> 'core/Controller',
+		'Database'		=> 'core/Database',
 	);
 	
 	public function __construct()
