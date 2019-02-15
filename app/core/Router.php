@@ -52,6 +52,36 @@ abstract class Router
 	{
 		$response = "";
 		
+		// Select routes list by request method
+		$routes = array();
+		switch( $request->method )
+		{
+			case 'GET':
+				$routes = &self::$GET_routes;
+				break;
+			case 'POST':
+				$routes = &self::$POST_routes;
+				break;
+		}
+		
+		// Searching the right route by patterns 
+		$route = null;
+		$callbackParameters;
+		foreach( $routes as $routePattern => $routeData )
+		{
+			if( preg_match("/^$routePattern$/i", $request->uri, $callbackParameters) )
+			{
+				$route = $routeData;
+				break;
+			}
+		}
+		
+		// Check found route
+		if( $route === null )
+		{
+			return;
+		}
+		
 		return $response;
 	}
 	
