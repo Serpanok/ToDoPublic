@@ -78,18 +78,18 @@ class Request
 	 * @param  string  $name
 	 * @return string
 	 */
-	public function __set( string $name, mixed $value )
+	public function __set( $name, mixed $value )
 	{
 		// disabled change of input items
 		return;
 	}
 	
-	public function __isset( string $name )
+	public function __isset( $name )
 	{
 		return isset( $this->input[ $name ] );
 	}
 	
-	public function __unset( string $name ) 
+	public function __unset( $name ) 
     {
         unset( $this->input[ $name ] );
     }
