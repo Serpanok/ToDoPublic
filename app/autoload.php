@@ -17,6 +17,7 @@ class Autoload
 		'Collection'	=> 'core/Collection',
 		'View'			=> 'core/View',
 		'Session'		=> 'core/Session',
+		'Middleware'	=> 'core/Middleware',
 		
 		'Smarty'		=> 'libs/Smarty/Smarty.class',
 	);
@@ -35,9 +36,9 @@ class Autoload
 		}
 		
 		// parse class name by pattern
-		preg_match("/([a-zA-Z]{1,})(Controller|Model)$/", $className, $structure);
+		preg_match("/([a-zA-Z]{1,})(Controller|Model|Middleware)$/", $className, $structure);
 		
-		// if its Controller or Model
+		// if its Controller, Model or Middleware
 		if( isset($structure[2]) )
 		{
 			$file = null;
@@ -48,6 +49,9 @@ class Autoload
 					break;
 				case 'Model':
 					$file = __DIR__ . "/models/" . $structure[0] . ".php";
+					break;
+				case 'Middleware':
+					$file = __DIR__ . "/middlewares/" . $structure[0] . ".php";
 					break;
 			}
 			if( $file !== null && file_exists($file) )
