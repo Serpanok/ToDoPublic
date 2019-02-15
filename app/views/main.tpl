@@ -40,6 +40,8 @@
 				<p><a class="btn btn-lg btn-success" href="/create" role="button">Create task</a></p>
 			</div>
 		{/if}
+		
+		{include file='messages.tpl' messages=$_messages}
 		 
 		{$content}
 		

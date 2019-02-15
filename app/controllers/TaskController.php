@@ -31,6 +31,7 @@ class TaskController extends Controller
 		// if request not contains required parameters
 		if( !isset( $request->username ) || !isset( $request->email ) || !isset( $request->text ) )
 		{
+			Session::message("Fill all necessary fields", "warning");
 			Router::redirectNow("/create");
 		}
 		
@@ -40,8 +41,12 @@ class TaskController extends Controller
 			"email" => $request->email,
 			"text" => $request->text
 		]);
+		
 		// save to DB
-		$task->save();
+		if( $task->save() )
+		{
+			Session::message("New task successfully added", "success");
+		}
 		
 		Router::redirectNow("/");
 	}

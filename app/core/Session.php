@@ -76,4 +76,38 @@ abstract class Session
 	{
 		unset( static::$storage[$name] );
 	}
+	
+	/**
+     * Add new message to stack.
+     *
+     * @param  array  $message
+     * @param  string  $type
+     * @return void
+     */
+	public static function message( $message, $type = 'info' )
+	{
+		static::$storage["_messages"][] = [$message, $type];
+	}
+	
+	/**
+     * Return count of messages.
+     *
+     * @return int
+     */
+	public static function messagesCount( )
+	{
+		return self::has("_messages") ? count(static::$storage["_messages"]) : 0;
+	}
+	
+	/**
+     * Return all messages & delete it.
+     *
+     * @return array
+     */
+	public static function pullMessages( )
+	{
+		return self::has("_messages") ? self::pull("_messages") : array();
+	}
+	
 }
+

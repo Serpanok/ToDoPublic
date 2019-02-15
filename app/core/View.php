@@ -39,6 +39,8 @@ class View
 			return $content;
 		}
 		
+		$attributes["_messages"] = Session::pullMessages();
+		
 		$smarty = self::prepareSmarty( $attributes, $settings );
 		
 		// render content by tpl name
