@@ -36,6 +36,18 @@ abstract class Router
 	}
 	
 	/**
+     * Register user.
+     *
+     * @param  string  $target
+     * @return void
+     */
+	public static function redirectNow( $target )
+	{
+		header('Location: ' . CONFIG_WEB["url"] . $target, true, 303);
+		exit();
+	}
+	
+	/**
      * Register a new GET route.
      *
      * @param  string  $route
