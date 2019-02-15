@@ -16,6 +16,8 @@ class Autoload
 		'Model'			=> 'core/Model',
 		'Collection'	=> 'core/Collection',
 		'View'			=> 'core/View',
+		'Session'		=> 'core/Session',
+		
 		'Smarty'		=> 'libs/Smarty/Smarty.class',
 	);
 	

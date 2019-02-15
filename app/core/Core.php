@@ -13,6 +13,7 @@ class Core
 			$this->request = new Request();
 			
 			Database::init();
+			Session::init();
 
 			print Router::handle( $this->request );
 		}
