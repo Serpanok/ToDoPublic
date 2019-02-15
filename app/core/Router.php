@@ -17,6 +17,26 @@ abstract class Router
 	private static $POST_routes	= array();	
 	
 	/**
+     * List of registered redirects.
+     *
+     * @var array
+     */
+	private static $redirects	= array();
+	
+	/**
+     * Register a new redirect.
+     *
+     * @param  string  $route
+     * @param  string  $target
+     * @return void
+     */
+	public static function redirect( $route, $target )
+	{
+		$route = self::prepareRoute($route);
+		self::$redirects[$route] = $target;
+	}
+	
+	/**
      * Register a new GET route.
      *
      * @param  string  $route
@@ -50,6 +70,13 @@ abstract class Router
      */
 	public static function handle( $request )
 	{
+		// Check for redirect
+		if( isset( self::$redirects[ $request->uri ] ) )
+		{
+			header('Location: ' . CONFIG_WEB["url"] . self::$redirects[ $request->uri ], true, 302);
+			return;
+		}
+		
 		$response = "";
 		
 		// Select routes list by request method
