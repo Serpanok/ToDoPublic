@@ -17,4 +17,49 @@ abstract class DataBase
 			self::$DBH->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 		}
 	}
+	
+	/**
+     * Select & return all results.
+     *
+	 * @param  string  $query
+	 * [ @param  mixed  ...$placeholders ]
+     * @return PDOStatement
+     */
+	public static function select($query, ...$placeholders)
+	{
+		$STH = self::execute($query, $placeholders);
+		$STH->setFetchMode(PDO::FETCH_OBJ);
+		
+		return $STH->fetchAll();
+	}
+	
+	/**
+     * Select & return first(one) result.
+     *
+	 * @param  string  $query
+	 * [ @param  mixed  ...$placeholders ]
+     * @return PDOStatement
+     */
+	public static function selectOne($query, ...$placeholders)
+	{
+		$STH = self::execute($query, $placeholders);
+		$STH->setFetchMode(PDO::FETCH_OBJ);
+		
+		return $STH->fetch();
+	}
+	
+	/**
+     * Prepare & execute query with placeholders by DBH.
+     *
+	 * @param  string  $query
+	 * @param  array  $placeholders
+     * @return PDOStatement
+     */
+	protected static function execute($query, $placeholders)
+	{
+		$STH = self::$DBH->prepare($query);
+		$STH->execute($placeholders);
+		
+		return $STH;
+	}
 }
