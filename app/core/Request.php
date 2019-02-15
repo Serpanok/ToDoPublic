@@ -27,6 +27,9 @@ class Request
 	{
 		// set http method
 		$this->method = $_SERVER["REQUEST_METHOD"];
+		
+		// set URI
+		$this->uri = $this->prepareUri($_SERVER["REQUEST_URI"]);
     }
 	
 	/**
@@ -38,5 +41,23 @@ class Request
 	protected function input( $name )
 	{
 		return isset( $this->input[ $name ] ) ? $this->input[ $name ] : null;
+	}
+	
+	/**
+     * Remove unnecessary information from uri.
+     *
+	 * @param  string  $uri
+     * @return string
+     */
+	protected function prepareUri( $uri )
+	{
+		$prefix = str_replace("/", "\/", CONFIG_WEB["uri_prefix"]);
+		
+		// remove uri_prefix
+		$uri = preg_replace("/^$prefix/i", "", $uri);
+		// remove GET vars
+		$uri = preg_replace("/\?.*$/i", "", $uri);
+		
+		return $uri;
 	}
 }
