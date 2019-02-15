@@ -24,17 +24,38 @@ class TaskController extends Controller
 			$page = $pagesCount;
 		}
 		
+		// set sort type and check for correct value
+		$sortBy = isset($request->sortBy) ? $request->sortBy : 0;
+		if( $sortBy < 0 )
+		{
+			$sortBy = 0;
+		}
+		else if( $sortBy > 3 )
+		{
+			$sortBy = 3;
+		}
+		// set sort type and check for correct value
+		$sortDir = isset($request->sortDir) && $request->sortDir == 1 ? 1 : 0;
+		
 		// select tasks on this page
-		$tasks = TaskModel::pageItems($page);
+		$tasks = TaskModel::pageItems($page, [$sortBy, $sortDir]);
 		
 		$pagination = View::render("pagination", [
 			"pagesCount" => $pagesCount,
 			"page" => $page,
-			"uri_prfix" => "/?page=",
+			"uri_prfix" => "/?sortBy=$sortBy&sortDir=$sortDir&page=",
 		]);
 		
 		$content = View::render("tasksList", [
 			"tasks" => $tasks->items,
+			
+			"sortByValues" => array(0, 1, 2, 3),
+			"sortByNames" => array("Sort by novelty", "Sort by Name", "Sort by Email", "Sort by Status"),
+			"sortBySelected" => $sortBy,
+			
+			"sortDirValues" => array(0, 1),
+			"sortDirNames" => array("Ascending", "Descending"),
+			"sortDirSelected" => $sortDir,
 		]);
 		
 		return View::main($content . $pagination, [ "promo" => true, "title" => "Public ToDo list" ]);
