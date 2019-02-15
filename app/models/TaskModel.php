@@ -1,5 +1,29 @@
 <?php
 
+/*
+
+--
+-- MySql for create table in DB
+--
+
+DROP TABLE IF EXISTS `tasks`;
+CREATE TABLE `tasks` (
+  `task_id` smallint(5) UNSIGNED NOT NULL,
+  `status` tinyint(1) UNSIGNED NOT NULL DEFAULT '1',
+  `username` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `text` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+ALTER TABLE `tasks`
+  ADD PRIMARY KEY (`task_id`);
+  
+ALTER TABLE `tasks`
+  MODIFY `task_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+*/
+
 class TaskModel extends Model
 {	
 	protected static $table = "tasks";

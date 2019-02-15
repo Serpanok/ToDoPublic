@@ -1,5 +1,29 @@
 <?php
 
+/*
+
+--
+-- MySql for create table in DB
+--
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `user_id` smallint(5) UNSIGNED NOT NULL,
+  `username` varchar(30) NOT NULL,
+  `password` char(32) NOT NULL,
+  `name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`user_id`),
+  ADD UNIQUE KEY `username` (`username`);
+
+ALTER TABLE `users`
+  MODIFY `user_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+*/
+
 class UserModel extends Model
 {
 	protected static $table = "users";
