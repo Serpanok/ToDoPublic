@@ -44,13 +44,50 @@ abstract class Model
     }
 	
 	/**
+     * Find Model by primary key.
+     *
+	 * @param  int  $primaryKey
+     * @return object
+     */
+	public static function find( $primaryKey )
+	{
+		self::init();
+		
+		// Select one item by primary key in Database
+		$result = Database::selectOne("SELECT * FROM `" . static::$table . "` WHERE `" . static::$primaryKey . "` = ?", $primaryKey);		
+		if( $result == null )
+		{
+			return null;
+		}
+		
+		// Create & return new object of Model
+		return self::newItem($result);
+	}
+	
+	/**
+     * Create new object of Model & set attributes.
+     *
+	 * @param  array  $result
+     * @return object
+     */
+	protected static function newItem( $result = array() )
+	{
+		$class = get_called_class();
+		$item = new $class;
+		
+		self::setAttributes($item, $result);
+		
+		return $item;
+	}
+	
+	/**
      * Set attributes in object by array.
      *
 	 * @param  object  $object
 	 * @param  array  $attributes
      * @return void
      */
-	protected static function setAttributes( object &$object, array $attributes )
+	protected static function setAttributes( object &$object, $attributes )
 	{
 		foreach($attributes as $key => $value)
 		{
