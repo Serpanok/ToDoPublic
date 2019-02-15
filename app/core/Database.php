@@ -49,6 +49,48 @@ abstract class DataBase
 	}
 	
 	/**
+     * Insert & return affected rows count(result).
+     *
+	 * @param  string  $query
+	 * [ @param  mixed  ...$placeholders ]
+     * @return PDOStatement
+     */
+	public static function insert($query, ...$placeholders)
+	{
+		$STH = self::execute($query, $placeholders);
+		
+		return $STH->rowCount();
+	}
+	
+	/**
+     * Update & return affected rows count(result).
+     *
+	 * @param  string  $query
+	 * [ @param  mixed  ...$placeholders ]
+     * @return PDOStatement
+     */
+	public static function update($query, ...$placeholders)
+	{
+		$STH = self::execute($query, $placeholders);
+		
+		return $STH->rowCount();
+	}
+	
+	/**
+     * Delete & return affected rows count(result).
+     *
+	 * @param  string  $query
+	 * [ @param  mixed  ...$placeholders ]
+     * @return PDOStatement
+     */
+	public static function delete($query, ...$placeholders)
+	{
+		$STH = self::execute($query, $placeholders);
+		
+		return $STH->rowCount();
+	}
+	
+	/**
      * Prepare & execute query with placeholders by DBH.
      *
 	 * @param  string  $query
