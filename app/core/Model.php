@@ -99,11 +99,11 @@ abstract class Model
 	/**
      * Set attributes in object by array.
      *
-	 * @param  object  $object
+	 * @param  Model  $object
 	 * @param  array  $attributes
      * @return void
      */
-	protected static function setAttributes( object &$object, $attributes )
+	protected static function setAttributes( Model &$object, array $attributes )
 	{
 		foreach($attributes as $key => $value)
 		{
