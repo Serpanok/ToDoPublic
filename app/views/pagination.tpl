@@ -1,3 +1,4 @@
+{if $pagesCount gt 0}
 <nav aria-label="Page navigation">
 	<ul class="pagination">
 		<li{if $page le 1} class="disabled"{/if}>
@@ -17,3 +18,4 @@
 		</li>
 	</ul>
 </nav>
+{/if}

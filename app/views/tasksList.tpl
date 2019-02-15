@@ -31,7 +31,7 @@
 					</div>
 				</div>
 			{foreachelse}
-				Ничего не найдено
+				<p>Ничего не найдено</p>
 			{/foreach}
 		</p>
 	</div>
