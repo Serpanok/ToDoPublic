@@ -2,7 +2,14 @@
 
 class TaskController extends Controller
 {
-	public function page( $request, $page = 1 )
+	/**
+     * Render tasks list page.
+     *
+	 * @param  Request  $request
+	 * @param  string  $page
+     * @return object
+     */
+	public function page( Request $request, $page = 1 )
 	{
 		$tasks = TaskModel::all();
 		
@@ -11,6 +18,32 @@ class TaskController extends Controller
 		]);
 		
 		return View::main($content, [ "promo" => true, "title" => "Public ToDo list" ]);
+	}
+	
+	/**
+     * Create new task.
+     *
+	 * @param  Request  $request
+     * @return object
+     */
+	public function create( Request $request )
+	{
+		// if request not contains required parameters
+		if( !isset( $request->username ) || !isset( $request->email ) || !isset( $request->text ) )
+		{
+			Router::redirectNow("/create");
+		}
+		
+		// create new object
+		$task = new TaskModel([
+			"username" => $request->username,
+			"email" => $request->email,
+			"text" => $request->text
+		]);
+		// save to DB
+		$task->save();
+		
+		Router::redirectNow("/");
 	}
 }
 
