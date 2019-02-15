@@ -22,7 +22,13 @@
 						<h3 class="panel-title">{$task->username}</h3>
 					</div>
 					<div class="panel-body">{$task->text}</div>
-					<div class="panel-footer"><b>Email:</b> <a href="mailto:{$task->email}" target="_blank">{$task->email}</a> <b>Status:</b> {$task->statusName}</div>
+					<div class="panel-footer">
+						<b>Email:</b> <a href="mailto:{$task->email}" target="_blank">{$task->email}</a>
+						<b>Status:</b> {$task->statusName}
+						{if $_auth}
+							<b>Controll:</b> <a href="/edit/{$task->task_id}">Edit</a>
+						{/if}
+					</div>
 				</div>
 			{foreachelse}
 				Ничего не найдено

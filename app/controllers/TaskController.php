@@ -47,6 +47,7 @@ class TaskController extends Controller
 		
 		$content = View::render("tasksList", [
 			"tasks" => $tasks->items,
+			"_auth" => Session::has("auth"),
 			
 			"sortByValues" => array(0, 1, 2, 3),
 			"sortByNames" => array("Sort by novelty", "Sort by Name", "Sort by Email", "Sort by Status"),
