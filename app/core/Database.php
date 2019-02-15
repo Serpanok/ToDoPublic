@@ -61,6 +61,16 @@ abstract class Database
 	}
 	
 	/**
+     * Return last insert id
+	 *
+     * @return int
+     */
+	public static function lastInsertId()
+	{
+		return static::$DBH->lastInsertId();
+	}
+	
+	/**
      * Update & return affected rows count(result).
      *
 	 * @param  string  $query
