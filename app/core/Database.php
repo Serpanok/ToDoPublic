@@ -28,7 +28,6 @@ abstract class DataBase
 	public static function select($query, ...$placeholders)
 	{
 		$STH = self::execute($query, $placeholders);
-		$STH->setFetchMode(PDO::FETCH_OBJ);
 		
 		return $STH->fetchAll();
 	}
@@ -43,7 +42,6 @@ abstract class DataBase
 	public static function selectOne($query, ...$placeholders)
 	{
 		$STH = self::execute($query, $placeholders);
-		$STH->setFetchMode(PDO::FETCH_OBJ);
 		
 		return $STH->fetch();
 	}
@@ -101,6 +99,7 @@ abstract class DataBase
 	{
 		$STH = self::$DBH->prepare($query);
 		$STH->execute($placeholders);
+		$STH->setFetchMode(PDO::FETCH_ASSOC);
 		
 		return $STH;
 	}
