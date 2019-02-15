@@ -25,9 +25,7 @@ Router::get("/create", function() {
 		]
 	] , [ "title" => "Create a new task" ]);
 });
-
 Router::post("/create", "TaskController@create");
-
 
 Router::get("/signin", "AuthController@signinPage");
 Router::post("/signin", "AuthController@signin");
