@@ -21,6 +21,7 @@ Router::get("/create", function() {
 		"attributes" => [ 
 			"username" => Session::get("username", ""),
 			"email" => Session::get("email", ""),
+			"allowableTags" => htmlspecialchars(CONFIG_WEB["allowable_tags"]),
 		]
 	] , [ "title" => "Create a new task" ]);
 });

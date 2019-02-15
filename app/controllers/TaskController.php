@@ -78,9 +78,9 @@ class TaskController extends Controller
 		
 		// create new object
 		$task = new TaskModel([
-			"username" => $request->username,
-			"email" => $request->email,
-			"text" => $request->text
+			"username" => strip_tags( $request->username ),
+			"email" => strip_tags( $request->email ),
+			"text" => strip_tags( $request->text, CONFIG_WEB["allowable_tags"] ),
 		]);
 		
 		// save to DB

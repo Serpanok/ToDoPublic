@@ -12,8 +12,9 @@
 			<div class="form-group">
 				<label for="createFromText">Task</label>
 				<textarea class="form-control" name="text" id="createFromText" placeholder="Text" required></textarea>
+				<span id="helpBlock" class="help-block">You can use the following tags: {$allowableTags|default:''}</span>
 			</div>
-			<button type="submit" class="btn btn-default">Create!</button>
+			<button type="submit" class="btn btn-default">Create</button>
 		</form>
 	</div>
 </div>

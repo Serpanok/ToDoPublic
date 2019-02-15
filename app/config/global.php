@@ -5,4 +5,6 @@ const CONFIG_WEB = array(
 	'uri_prefix'	=> '',
 	
 	'password_salt'	=> [ '%SW1}MhlAT', 'a@UkO?}jSr' ],
+	
+	'allowable_tags' => "<b><strong><i><em><a><br>",
 );
