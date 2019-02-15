@@ -32,7 +32,6 @@ abstract class Router
      */
 	public static function redirect( $route, $target )
 	{
-		$route = self::prepareRoute($route);
 		self::$redirects[$route] = $target;
 	}
 	
