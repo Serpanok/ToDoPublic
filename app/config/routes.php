@@ -26,3 +26,6 @@ Router::get("/signin", "AuthController@signinPage");
 Router::post("/signin", "AuthController@signin");
 Router::get("/signout", "AuthController@signout", [ "middlewares" => [ "AuthMiddleware" ] ]);
 
+Router::get("/edit/{id}", "TaskController@editPage", [ "middlewares" => [ "AuthMiddleware" ] ]);
+Router::post("/edit/{id}", "TaskController@edit", [ "middlewares" => [ "AuthMiddleware" ] ]);
+
