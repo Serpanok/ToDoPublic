@@ -1,5 +1,8 @@
 _notes/
 
+# Configs
+app/config/database.php
+
 # Examples
 examples/
 example.*
