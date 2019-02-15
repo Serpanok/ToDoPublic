@@ -79,10 +79,25 @@ abstract class Router
 		// Check found route
 		if( $route === null )
 		{
+			self::terminate(404);
 			return;
 		}
 		
 		return $response;
+	}
+	
+	/**
+     * Terminate with http error
+     *
+     * @param  int  $errorCode
+     * @return void
+     */
+	public static function terminate( $errorCode )
+	{
+		http_response_code($errorCode);
+		
+		//temporary solution
+		exit("ERROR $errorCode");
 	}
 	
 	/**
