@@ -27,7 +27,7 @@ class View
 	/**
 	 * Render and return view with main teamplate.
 	 *
-	 * @param  string  $content
+	 * @param  mixed  $content
 	 * @param  array  $attributes
 	 * @param  array  $settings
 	 * @return string
@@ -40,6 +40,19 @@ class View
 		}
 		
 		$smarty = self::prepareSmarty( $attributes, $settings );
+		
+		// render content by tpl name
+		if( is_array($content) )
+		{
+			if( isset($content["tpl"]) )
+			{
+				$content = self::render($content["tpl"]);
+			}
+			else
+			{
+				$content = "";
+			}
+		}
 		
 		$smarty->assign("content", $content);
 		
@@ -56,14 +69,17 @@ class View
 	protected static function prepareSmarty( array $attributes = array(), $settings = array() )
 	{
 		$smarty = new Smarty;
+		
 		$smarty->template_dir = __DIR__ . '/../views';
 		$smarty->compile_dir = __DIR__ . '/../views/compile';
 		
+		// set smarty attributes
 		foreach( $attributes as $key => $value )
 		{
 			$smarty->assign($key, $value);
 		}
 		
+		// set smarty settings
 		foreach( $settings as $attr => $value )
 		{
 			$smarty->$attr = $value;
