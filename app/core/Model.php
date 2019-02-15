@@ -119,19 +119,9 @@ abstract class Model
 	{
 		self::init();
 		
-		$collection = new Collection();
-		
 		$result = DataBase::select("SELECT * FROM `" . static::$table . "`");
 		
-		if( $result !== null )
-		{
-			foreach( $result as $item )
-			{
-				$collection->items[] = self::newItem($item);
-			}
-		}
-		
-		return $collection;
+		return self::newCollection($result);
 	}
 	
 	/**
@@ -235,6 +225,27 @@ abstract class Model
 		$item->isExist = $isExist;
 		
 		return $item;
+	}
+	
+	/**
+     * Create new Collection of Models.
+     *
+	 * @param  array  &$result
+     * @return Collection
+     */
+	protected static function newCollection( &$result = null )
+	{
+		$collection = new Collection();
+		
+		if( $result !== null )
+		{
+			foreach( $result as $item )
+			{
+				$collection->items[] = self::newItem($item);
+			}
+		}
+		
+		return $collection;
 	}
 	
 	/**
