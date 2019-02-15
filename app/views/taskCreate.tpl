@@ -3,11 +3,11 @@
 		<form method="post">
 			<div class="form-group">
 				<label for="createFromUsername">Your name</label>
-				<input type="name" class="form-control" name="username" id="createFromUsername" placeholder="Name" required>
+				<input type="name" class="form-control" name="username" id="createFromUsername" placeholder="Name" value="{$username|default:''}" required>
 			</div>
 			<div class="form-group">
 				<label for="createFromEmail">Email address</label>
-				<input type="email" class="form-control" name="email" id="createFromEmail" placeholder="Email" required>
+				<input type="email" class="form-control" name="email" id="createFromEmail" placeholder="Email" value="{$email|default:''}" required>
 			</div>
 			<div class="form-group">
 				<label for="createFromText">Task</label>

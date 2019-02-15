@@ -16,7 +16,13 @@
 Router::get("/", "TaskController@page");
 
 Router::get("/create", function() {
-	return View::main( ["tpl" => "taskCreate"] , [ "title" => "Create a new task" ]);
+	return View::main( [
+		"tpl" => "taskCreate", 
+		"attributes" => [ 
+			"username" => Session::get("username", ""),
+			"email" => Session::get("email", ""),
+		]
+	] , [ "title" => "Create a new task" ]);
 });
 
 Router::post("/create", "TaskController@create");

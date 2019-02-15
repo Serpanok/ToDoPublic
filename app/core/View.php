@@ -49,7 +49,10 @@ class View
 		{
 			if( isset($content["tpl"]) )
 			{
-				$content = self::render($content["tpl"]);
+				$content = self::render(
+					$content["tpl"], 
+					isset($content["attributes"]) ? $content["attributes"] : array()
+				);
 			}
 			else
 			{

@@ -86,6 +86,10 @@ class TaskController extends Controller
 		// save to DB
 		if( $task->save() )
 		{
+			// Save username and email for autocomplete
+			Session::set("username", $request->username);
+			Session::set("email", $request->email);
+			
 			Session::message("New task successfully added", "success");
 		}
 		
