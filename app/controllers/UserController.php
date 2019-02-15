@@ -9,6 +9,13 @@ class UserController extends Controller
 	
 	public function userPage( $request, $user_id )
 	{
-		return sprintf("User page<br><br>id: %d", $user_id);
+		$user = UserModel::find($user_id);
+		
+		if( $user === null )
+		{
+			Router::terminate(404);
+		}
+		
+		return sprintf("User page<br><br>id: %d<br>Username: %s", $user_id, $user->username);
 	}
 }
