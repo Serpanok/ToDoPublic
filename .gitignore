@@ -3,6 +3,9 @@ _notes/
 # Configs
 app/config/database.php
 
+#Cache
+app/views/compile/
+
 # Examples
 examples/
 example.*
