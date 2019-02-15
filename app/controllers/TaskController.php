@@ -18,7 +18,7 @@ class TaskController extends Controller
 		{
 			$page = 1;
 		}
-		else if( $page > $pagesCount )
+		else if( $page > $pagesCount && $pagesCount > 0 )
 		{
 			$page = $pagesCount;
 		}
