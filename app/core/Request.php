@@ -62,6 +62,39 @@ class Request
 	}
 	
 	/**
+	 * Getter of input item.
+	 *
+	 * @param  string  $name
+	 * @return string
+	 */
+	public function __get( $name )
+	{
+		return $this->input( $name );
+	}
+	
+	/**
+	 * Setter of input item.
+	 *
+	 * @param  string  $name
+	 * @return string
+	 */
+	public function __set( string $name, mixed $value )
+	{
+		// disabled change of input items
+		return;
+	}
+	
+	public function __isset( string $name )
+	{
+		return isset( $this->input[ $name ] );
+	}
+	
+	public function __unset( string $name ) 
+    {
+        unset( $this->input[ $name ] );
+    }
+	
+	/**
      * Remove unnecessary information from uri.
      *
 	 * @param  string  $uri
