@@ -62,9 +62,10 @@ abstract class Model
 	 * Setter of input item.
 	 *
 	 * @param  string  $name
+	 * @param  mixed  $value
 	 * @return string
 	 */
-	public function __set( $name, mixed $value )
+	public function __set( $name, $value )
 	{
 		$this->attributes[$name] = $value;
 	}
