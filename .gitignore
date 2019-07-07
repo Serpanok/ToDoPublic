@@ -3,6 +3,9 @@ _notes/
 # Configs
 app/config/database.php
 
+# Libs
+app/libs
+
 #Cache
 app/views/compile/
 
